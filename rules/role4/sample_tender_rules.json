@@ -1,0 +1,14 @@
+{
+  "tender_id": "SIH26100-DEMO",
+  "gst_required": true,
+  "pan_required": true,
+  "udyam_required": true,
+  "oem_required": true,
+  "startup_required": false,
+  "nsic_required": false,
+  "make_in_india_required": false,
+  "epfo_required": false,
+  "esic_required": false,
+  "certificate_required": true,
+  "minimum_turnover": 100000000
+}

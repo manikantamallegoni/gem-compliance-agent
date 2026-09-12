@@ -1,0 +1,39 @@
+{
+  "bidder": {
+    "company_name": "XYZ Enterprises Pvt Ltd",
+    "pan": "XYZAB1234K",
+    "pan_status": "Valid",
+    "gst": "36XYZAB1234K1Z5",
+    "gst_status": "Active",
+    "udyam": "UDYAM-TS-12-9876543",
+    "udyam_status": "Active",
+    "turnover": 85000000,
+    "oem_status": "Missing",
+    "blacklisted": false,
+    "startup_status": "Not Applicable",
+    "nsic_status": "Not Applicable",
+    "make_in_india_status": "Compliant",
+    "epfo_status": "Compliant",
+    "esic_status": "Compliant",
+    "certificate_status": "Valid",
+    "document_expiry_date": "2027-12-31",
+    "company_name_pan": "XYZ Enterprises Pvt Ltd",
+    "company_name_gst": "XYZ Enterprises Pvt Ltd",
+    "company_name_udyam": "XYZ Enterprises Pvt Ltd",
+    "company_name_oem": "XYZ Enterprises Pvt Ltd"
+  },
+  "tender": {
+    "tender_id": "GEM-REAL-EXAMPLE",
+    "gst_required": true,
+    "pan_required": true,
+    "udyam_required": true,
+    "oem_required": true,
+    "startup_required": false,
+    "nsic_required": false,
+    "make_in_india_required": false,
+    "epfo_required": false,
+    "esic_required": false,
+    "certificate_required": true,
+    "minimum_turnover": 100000000
+  }
+}

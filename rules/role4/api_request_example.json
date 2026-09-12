@@ -1,0 +1,39 @@
+{
+  "bidder": {
+    "company_name": "REAL COMPANY NAME",
+    "pan": "REAL PAN",
+    "pan_status": "Valid",
+    "gst": "REAL GST",
+    "gst_status": "Active",
+    "udyam": "REAL UDYAM",
+    "udyam_status": "Active",
+    "turnover": 150000000,
+    "oem_status": "Valid",
+    "blacklisted": false,
+    "startup_status": "Not Applicable",
+    "nsic_status": "Not Applicable",
+    "make_in_india_status": "Compliant",
+    "epfo_status": "Compliant",
+    "esic_status": "Compliant",
+    "certificate_status": "Valid",
+    "document_expiry_date": "2027-12-31",
+    "company_name_pan": "REAL COMPANY NAME",
+    "company_name_gst": "REAL COMPANY NAME",
+    "company_name_udyam": "REAL COMPANY NAME",
+    "company_name_oem": "REAL COMPANY NAME"
+  },
+  "tender": {
+    "tender_id": "GEM-EXAMPLE",
+    "gst_required": true,
+    "pan_required": true,
+    "udyam_required": true,
+    "oem_required": true,
+    "startup_required": false,
+    "nsic_required": false,
+    "make_in_india_required": false,
+    "epfo_required": false,
+    "esic_required": false,
+    "certificate_required": true,
+    "minimum_turnover": 100000000
+  }
+}
