@@ -1,0 +1,17 @@
+[
+  {
+    "clause_id": "TURNOVER_REQ",
+    "requirement_name": "Minimum Financial Turnover",
+    "expected_value": "50 Lakhs INR over last 3 years"
+  },
+  {
+    "clause_id": "GSTIN_REQ",
+    "requirement_name": "GSTIN Registration",
+    "expected_value": "Valid 15-digit GSTIN"
+  },
+  {
+    "clause_id": "PAN_REQ",
+    "requirement_name": "PAN Registration",
+    "expected_value": "Valid 10-character PAN Card"
+  }
+]
