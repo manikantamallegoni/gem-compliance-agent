@@ -1,0 +1,1480 @@
+<!DOCTYPE html>
+<html lang="en">
+<head >
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>GeM Audit</title>
+    <link rel="icon" href="data:,">
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+
+        html,
+        body {
+            margin: 0;
+            padding: 0;
+            min-height: 100%;
+        }
+
+        body {
+            background: #f5f4f0;
+            color: #171717;
+            font-family: Arial, Helvetica, sans-serif;
+        }
+
+        /* =====================================================
+           AUTH SCREEN
+           ===================================================== */
+
+        #authScreen {
+            position: fixed;
+            inset: 0;
+            z-index: 99999;
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            background: #f5f4f0;
+        }
+
+        .auth-box {
+            width: min(460px, calc(100% - 40px));
+            padding: 50px 42px;
+
+            background: #ffffff;
+            border: 1px solid #d5d2ca;
+
+            text-align: center;
+        }
+
+        .auth-line {
+            width: 70px;
+            height: 3px;
+            margin: 0 auto 30px;
+
+            background: #a71919;
+        }
+
+        .auth-logo {
+            font-size: 22px;
+            font-weight: 800;
+            letter-spacing: 4px;
+            margin-bottom: 8px;
+        }
+
+        .auth-subtitle {
+            font-size: 11px;
+            letter-spacing: 3px;
+            color: #666;
+            margin-bottom: 45px;
+        }
+
+        .auth-title {
+            font-size: 34px;
+            line-height: 1.05;
+            font-weight: 800;
+            margin: 0 0 15px;
+        }
+
+        .auth-description {
+            color: #667085;
+            line-height: 1.7;
+            margin-bottom: 30px;
+        }
+
+        #googleSignIn {
+            width: 100%;
+            border: 1px solid #171717;
+            background: #a71919;
+            color: white;
+
+            padding: 16px 20px;
+
+            font-size: 14px;
+            font-weight: 700;
+            letter-spacing: 1px;
+
+            cursor: pointer;
+        }
+
+        #googleSignIn:hover {
+            background: #851414;
+        }
+
+        #authStatus {
+            min-height: 24px;
+            margin-top: 18px;
+
+            font-size: 13px;
+            color: #a71919;
+        }
+
+        /* =====================================================
+           APPLICATION
+           ===================================================== */
+
+        #app {
+            display: none;
+        }
+
+        header {
+            height: 84px;
+
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+
+            padding: 0 7%;
+
+            background: #f5f4f0;
+            border-bottom: 1px solid #222;
+        }
+
+        .brand {
+            line-height: 1;
+        }
+
+        .brand-main {
+            font-size: 21px;
+            font-weight: 800;
+            letter-spacing: 2px;
+        }
+
+        .brand-sub {
+            margin-top: 8px;
+
+            font-size: 10px;
+            letter-spacing: 2px;
+            color: #666;
+        }
+
+        nav {
+            display: flex;
+            gap: 28px;
+        }
+
+        nav a {
+            color: #171717;
+            text-decoration: none;
+
+            font-size: 12px;
+            font-weight: 700;
+            letter-spacing: 1px;
+        }
+
+        .user-area {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        #userName {
+            font-size: 13px;
+            font-weight: 700;
+        }
+
+        #logoutButton {
+            border: 1px solid #171717;
+            background: transparent;
+
+            padding: 9px 15px;
+
+            cursor: pointer;
+            font-size: 11px;
+            font-weight: 700;
+        }
+
+        main {
+            width: 86%;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .hero {
+            min-height: 650px;
+
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+
+            border-bottom: 1px solid #222;
+        }
+
+        .hero-content {
+            max-width: 700px;
+        }
+
+        .red-line {
+            width: 70px;
+            height: 3px;
+            background: #a71919;
+            margin-bottom: 32px;
+        }
+
+        .hero h1 {
+            margin: 0;
+
+            font-size: clamp(60px, 7vw, 100px);
+            line-height: 0.9;
+            letter-spacing: -4px;
+            font-weight: 900;
+        }
+
+        .hero p {
+            max-width: 650px;
+
+            margin-top: 40px;
+
+            font-size: 19px;
+            line-height: 1.7;
+            color: #637083;
+        }
+
+        .buttons {
+            display: flex;
+            gap: 14px;
+            margin-top: 35px;
+        }
+
+        .button {
+            display: inline-block;
+
+            padding: 18px 32px;
+
+            border: 1px solid #171717;
+
+            text-decoration: none;
+
+            font-size: 12px;
+            font-weight: 800;
+            letter-spacing: 1px;
+
+            cursor: pointer;
+        }
+
+        .button-primary {
+            background: #a71919;
+            color: #fff;
+        }
+
+        .button-secondary {
+            background: transparent;
+            color: #171717;
+        }
+
+        .module-label {
+            margin-top: 110px;
+
+            font-size: 11px;
+            letter-spacing: 4px;
+            color: #a71919;
+        }
+       
+        /* =====================================================
+           AUDIT SECTION
+           ===================================================== */
+
+        #auditSection {
+            padding: 100px 0;
+        }
+
+        .audit-container {
+            background: #fff;
+            border: 1px solid #d7d7d7;
+            padding: 45px;
+        }
+
+        .audit-container h2 {
+            margin-top: 0;
+            font-size: 34px;
+        }
+
+        .form-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 25px;
+        }
+
+        .field {
+            margin-bottom: 24px;
+        }
+
+        .field.full {
+            grid-column: 1 / -1;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 8px;
+
+            font-size: 12px;
+            font-weight: 800;
+            letter-spacing: 1px;
+        }
+
+        input,
+        textarea {
+            width: 100%;
+
+            border: 1px solid #d4d7dc;
+            background: #fff;
+
+            padding: 14px;
+
+            font-size: 15px;
+        }
+
+        textarea {
+            min-height: 130px;
+            resize: vertical;
+        }
+
+        .documents {
+            margin-top: 30px;
+            padding-top: 30px;
+
+            border-top: 1px solid #ddd;
+        }
+
+        .documents-title {
+            margin-bottom: 20px;
+
+            font-size: 13px;
+            font-weight: 800;
+            letter-spacing: 1px;
+        }
+
+        .file-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 15px;
+        }
+
+        .file-box {
+            padding: 20px;
+
+            border: 1px solid #d7dce4;
+            background: #fafbfc;
+        }
+
+        .file-box.full {
+            grid-column: 1 / -1;
+        }
+
+        .file-name {
+            display: block;
+            margin-top: 10px;
+
+            color: #64748b;
+            font-size: 13px;
+        }
+
+        #runAudit {
+            margin-top: 25px;
+
+            border: 0;
+            background: #a71919;
+            color: white;
+
+            padding: 16px 28px;
+
+            font-weight: 800;
+            letter-spacing: 1px;
+
+            cursor: pointer;
+        }
+
+        #runAudit:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+
+        #result {
+            margin-top: 30px;
+            white-space: pre-wrap;
+        }
+
+        @media (max-width: 800px) {
+
+            header {
+                padding: 0 5%;
+            }
+
+            nav {
+                display: none;
+            }
+
+            main {
+                width: 90%;
+            }
+
+            .hero {
+                min-height: auto;
+                padding: 100px 0;
+            }
+
+            .hero h1 {
+                font-size: 60px;
+            }
+
+            .form-grid,
+            .file-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .field.full,
+            .file-box.full {
+                grid-column: auto;
+            }
+
+            .audit-container {
+                padding: 25px;
+            }
+
+        }
+        /* =====================================================
+   FOOTER
+   ===================================================== */
+
+.site-footer {
+    width: 100%;
+    margin-top: 60px;
+    padding: 50px 7% 25px;
+
+    color: #171717;
+    background: #f5f4f0;
+
+    border-top: 3px solid #a71919;
+}
+
+/* Footer main container */
+.site-footer > div {
+    width: 100%;
+    max-width: 1400px;
+    margin: 0 auto;
+}
+
+/* Three-column section */
+.site-footer .grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 60px;
+}
+
+/* Footer headings */
+.site-footer .form-section-label {
+    margin: 0 0 12px;
+
+    color: #121111;
+
+    font-size: 12px;
+    font-weight: 800;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+}
+
+/* Footer text */
+.site-footer p {
+    margin: 0;
+    color: #aaa;
+
+    font-size: 14px;
+    line-height: 1.7;
+}
+
+/* Links section */
+.site-footer nav {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 8px;
+}
+
+.site-footer nav a {
+    color: #aaa;
+
+    font-size: 14px;
+    font-weight: 400;
+    letter-spacing: 0;
+
+    text-decoration: none;
+
+    transition: color 0.2s ease;
+}
+
+.site-footer nav a:hover {
+    color: #ffffff;
+}
+
+/* Reference file */
+.site-footer .mono {
+    font-family: "Courier New", monospace;
+    font-size: 12px;
+    color: #aaa;
+    word-break: break-word;
+}
+
+/* Decorative line */
+.site-footer .deco-line {
+    width: 100%;
+    height: 1px;
+
+    margin: 35px 0 25px;
+
+    background: #444;
+}
+
+/* Bottom section */
+.site-footer .flex {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 20px;
+}
+
+/* Bottom links */
+.site-footer .flex > div {
+    display: flex;
+    gap: 20px;
+    flex-wrap: wrap;
+}
+
+.site-footer .flex > div a {
+    color: #aaa;
+
+    font-size: 11px;
+    text-decoration: none;
+
+    text-transform: uppercase;
+    letter-spacing: 1px;
+
+    border-bottom: 1px solid transparent;
+
+    transition: all 0.2s ease;
+}
+
+.site-footer .flex > div a:hover {
+    color: #ffffff;
+    border-bottom-color: #a71919;
+}
+
+/* Copyright */
+.site-footer .flex > p {
+    font-size: 11px;
+    color: #777;
+}
+
+
+/* =====================================================
+   FOOTER RESPONSIVE
+   ===================================================== */
+
+@media (max-width: 800px) {
+
+    .site-footer {
+        margin-top: 40px;
+        padding: 40px 5% 20px;
+    }
+
+    .site-footer .grid {
+        grid-template-columns: 1fr;
+        gap: 30px;
+    }
+
+    .site-footer .flex {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 20px;
+    }
+
+    .site-footer .flex > div {
+        gap: 15px;
+    }
+}
+    </style>
+</head>
+
+<body>
+
+<!-- =========================================================
+     AUTHENTICATION SCREEN
+     ========================================================= -->
+
+<div id="authScreen">
+
+    <div class="auth-box">
+
+        <div class="auth-line"></div>
+
+        <div class="auth-logo">
+            GEM
+        </div>
+
+        <div class="auth-subtitle">
+            COMPLIANCE AUDIT
+        </div>
+
+        <h1 class="auth-title">
+            SIGN IN
+        </h1>
+
+        <p class="auth-description">
+            Sign in with your Google account to access the
+            GeM Compliance Audit Platform.
+        </p>
+
+        <button id="googleSignIn">
+            SIGN IN WITH GOOGLE
+        </button>
+
+        <div id="authStatus"></div>
+
+    </div>
+
+</div>
+
+
+<!-- =========================================================
+     APPLICATION
+     Completely hidden until Firebase authentication succeeds.
+     ========================================================= -->
+
+<div id="app">
+
+    <header>
+
+        <div class="brand">
+
+            <div class="brand-main">
+                GEM
+            </div>
+
+            <div class="brand-sub">
+                AUDIT
+            </div>
+
+        </div>
+
+        <nav>
+            <a href="#auditSection">AUDIT</a>
+            <a href="#auditSection">DOCUMENTS</a>
+            <a href="#result">RESULTS</a>
+            <a href="#footer">CONTACT</a>
+        </nav>
+
+        <div class="user-area">
+
+            <span id="userName"></span>
+
+            <button id="logoutButton">
+                LOGOUT
+            </button>
+
+        </div>
+
+    </header>
+     
+
+
+
+    <main>
+
+        <!-- =================================================
+             HOME PAGE
+             ================================================= -->
+
+        <section class="hero">
+
+            <div class="hero-content">
+
+                <div class="red-line"></div>
+
+                <h1>
+                    COMPLIANCE<br>
+                    AUDIT<br>
+                    PLATFORM
+                </h1>
+
+                <p>
+                    Automated GeM bid compliance verification
+                    using document intelligence, verification
+                    tools, and explainable reasoning.
+                </p>
+
+                <div class="buttons">
+
+                    <a
+                        href="#auditSection"
+                        class="button button-primary"
+                    >
+                        BEGIN AUDIT →
+                    </a>
+
+                    <a
+                        href="#auditSection"
+                        class="button button-secondary"
+                    >
+                        DOCUMENTS
+                    </a>
+
+                </div>
+
+                <div class="module-label">
+                    MODULE 01
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- =================================================
+             AUDIT
+             ================================================= -->
+
+        <section id="auditSection">
+
+            <div class="audit-container">
+
+                <h2>
+                    Tender Compliance Audit
+                </h2>
+
+                <form id="auditForm">
+
+                    <div class="form-grid">
+
+                        <div class="field">
+
+                            <label>
+                                TENDER ID
+                            </label>
+
+                            <input
+                                type="text"
+                                name="tender_id"
+                                value="GEM/2026/B/2002"
+                                required
+                            >
+
+                        </div>
+
+                        <div class="field">
+
+                            <label>
+                                BIDDER NAME
+                            </label>
+
+                            <input
+                                type="text"
+                                name="bidder_name"
+                                value="Tech Corp"
+                                required
+                            >
+
+                        </div>
+
+                        <div class="field full">
+
+                            <label>
+                                REQUIREMENTS
+                            </label>
+
+                            <textarea
+                                name="tender_requirements"
+                                required
+                            >Minimum turnover of 50 Lakhs INR required. Valid PAN Card & GSTIN mandatory.</textarea>
+
+                        </div>
+
+                    </div>
+
+
+                    <div class="documents">
+
+                        <div class="documents-title">
+                            COMPLIANCE DOCUMENTS & VERIFICATION PROOFS
+                        </div>
+
+                        <div class="file-grid">
+
+                            <div class="file-box">
+
+                                <label>
+                                    PAN CARD PROOF
+                                </label>
+
+                                <input
+                                    type="file"
+                                    id="panFile"
+                                    name="pan_file"
+                                    accept=".pdf,.docx,.txt"
+                                >
+
+                                <span
+                                    class="file-name"
+                                    id="panName"
+                                >
+                                    No file chosen
+                                </span>
+
+                            </div>
+
+
+                            <div class="file-box">
+
+                                <label>
+                                    GST CERTIFICATE
+                                </label>
+
+                                <input
+                                    type="file"
+                                    id="gstFile"
+                                    name="gst_file"
+                                    accept=".pdf,.docx,.txt"
+                                >
+
+                                <span
+                                    class="file-name"
+                                    id="gstName"
+                                >
+                                    No file chosen
+                                </span>
+
+                            </div>
+
+
+                            <div class="file-box">
+
+                                <label>
+                                    FINANCIAL TURNOVER PROOF
+                                </label>
+
+                                <input
+                                    type="file"
+                                    id="financialFile"
+                                    name="financial_file"
+                                    accept=".pdf,.docx,.txt"
+                                >
+
+                                <span
+                                    class="file-name"
+                                    id="financialName"
+                                >
+                                    No file chosen
+                                </span>
+
+                            </div>
+
+
+                            <div class="file-box full">
+
+                                <label>
+                                    MAIN TENDER BID DOCUMENT
+                                </label>
+
+                                <input
+                                    type="file"
+                                    id="mainFile"
+                                    name="file"
+                                    accept=".pdf,.docx,.txt"
+                                    required
+                                >
+
+                                <span
+                                    class="file-name"
+                                    id="mainName"
+                                >
+                                    No file chosen
+                                </span>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+
+                    <button
+                        type="submit"
+                        id="runAudit"
+                    >
+                        RUN AUDIT
+                    </button>
+
+                </form>
+
+
+                <div id="result"></div>
+
+            </div>
+
+        </section>
+
+    </main>
+
+
+    <footer id="footer" class="site-footer">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid grid-cols-1 sm:grid-cols-3 gap-6">
+                <div>
+                    <p class="form-section-label" style="margin-bottom:0.75rem;">Contact</p>
+                    <p style="font-size: 0.875rem; color: var(--muted);">GeM Compliance Auditor UI</p>
+                    <p style="font-size: 0.875rem; color: var(--muted); margin-top: 0.25rem;">Document Intelligence Platform</p>
+                </div>
+                <div>
+                    <p class="form-section-label" style="margin-bottom:0.75rem;">Links</p>
+                    <nav style="display: flex; flex-direction: column; gap: 0.5rem;">
+                        <a href="#audit" style="font-size: 0.875rem; color: var(--muted); text-decoration: none; transition: color 0.15s;">Audit Form</a>
+                        <a href="#documents" style="font-size: 0.875rem; color: var(--muted); text-decoration: none; transition: color 0.15s;">Documents</a>
+                        <a href="#results" style="font-size: 0.875rem; color: var(--muted); text-decoration: none; transition: color 0.15s;">Results</a>
+                    </nav>
+                </div>
+                <div>
+                    <p class="form-section-label" style="margin-bottom:0.75rem;">Reference</p>
+                    <p class="mono" style="font-size: 0.75rem; color: var(--muted);">rules/GEM_2026_B_2002.json</p>
+                </div>
+            </div>
+            <div class="deco-line my-6"></div>
+            <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-3">
+                <p style="font-size: 0.75rem; color: var(--muted);">
+                    &copy; 2026 GeM Compliance Auditor. All rights reserved.
+                </p>
+                <div style="display: flex; gap: 1.25rem; flex-wrap: wrap;">
+                    <a href="#" style="font-size: 0.75rem; color: var(--muted); text-decoration: none; border-bottom: 1px solid transparent; transition: all 0.15s; text-transform: uppercase; letter-spacing: 0.05em;">GitHub</a>
+                    <a href="#" style="font-size: 0.75rem; color: var(--muted); text-decoration: none; border-bottom: 1px solid transparent; transition: all 0.15s; text-transform: uppercase; letter-spacing: 0.05em;">Docs</a>
+                    <a href="#" style="font-size: 0.75rem; color: var(--muted); text-decoration: none; border-bottom: 1px solid transparent; transition: all 0.15s; text-transform: uppercase; letter-spacing: 0.05em;">Privacy</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+</div>
+
+
+<!-- =========================================================
+     FIREBASE
+     ========================================================= -->
+
+<script type="module">
+
+    import {
+        initializeApp
+    } from
+    "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
+
+    import {
+        getAuth,
+        GoogleAuthProvider,
+        signInWithPopup,
+        signOut,
+        onAuthStateChanged
+    } from
+    "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
+
+
+    // ========================================================
+    // ELEMENTS
+    // ========================================================
+
+    const authScreen =
+        document.getElementById("authScreen");
+
+    const appScreen =
+        document.getElementById("app");
+
+    const googleSignIn =
+        document.getElementById("googleSignIn");
+
+    const logoutButton =
+        document.getElementById("logoutButton");
+
+    const authStatus =
+        document.getElementById("authStatus");
+
+    const userName =
+        document.getElementById("userName");
+
+
+    // ========================================================
+    // FIREBASE CONFIG
+    // ========================================================
+
+    let firebaseApp;
+    let auth;
+    let provider;
+
+
+    async function initializeFirebase() {
+
+        try {
+
+            const response =
+                await fetch("/firebase-config", {
+                    cache: "no-store"
+                });
+
+
+            if (!response.ok) {
+
+                const text =
+                    await response.text();
+
+                throw new Error(
+                    `Firebase configuration failed (${response.status}): ${text}`
+                );
+            }
+
+
+            const firebaseConfig =
+                await response.json();
+
+
+            firebaseApp =
+                initializeApp(firebaseConfig);
+
+
+            auth =
+                getAuth(firebaseApp);
+
+
+            provider =
+                new GoogleAuthProvider();
+
+
+            provider.setCustomParameters({
+                prompt: "select_account"
+            });
+
+
+            console.log(
+                "Firebase initialized successfully."
+            );
+
+
+            setupAuthListener();
+
+
+        } catch (error) {
+
+            console.error(
+                "Firebase initialization failed:",
+                error
+            );
+
+            authStatus.textContent =
+                "Unable to initialize Google authentication. Check Firebase configuration.";
+
+            googleSignIn.disabled = true;
+        }
+    }
+
+
+    // ========================================================
+    // AUTH STATE
+    // ========================================================
+
+    function setupAuthListener() {
+
+        onAuthStateChanged(
+            auth,
+            async (user) => {
+
+                if (user) {
+
+                    console.log(
+                        "Authenticated:",
+                        user.email
+                    );
+
+
+                    // -------------------------------
+                    // SHOW APPLICATION
+                    // -------------------------------
+
+                    authScreen.style.display =
+                        "none";
+
+                    appScreen.style.display =
+                        "block";
+
+
+                    userName.textContent =
+                        user.displayName ||
+                        user.email ||
+                        "Authenticated user";
+
+
+                } else {
+
+                    // -------------------------------
+                    // HIDE APPLICATION
+                    // -------------------------------
+
+                    appScreen.style.display =
+                        "none";
+
+                    authScreen.style.display =
+                        "flex";
+
+                    userName.textContent =
+                        "";
+
+                }
+            }
+        );
+    }
+
+
+    // ========================================================
+    // GOOGLE SIGN IN
+    // ========================================================
+
+    googleSignIn.addEventListener(
+        "click",
+        async () => {
+
+            if (!auth || !provider) {
+
+                authStatus.textContent =
+                    "Authentication is not ready.";
+
+                return;
+            }
+
+
+            googleSignIn.disabled = true;
+
+            authStatus.textContent =
+                "Opening Google sign-in...";
+
+
+            try {
+
+                const result =
+                    await signInWithPopup(
+                        auth,
+                        provider
+                    );
+
+
+                console.log(
+                    "Google login successful:",
+                    result.user.email
+                );
+
+
+                authStatus.textContent =
+                    "";
+
+
+            } catch (error) {
+
+                console.error(
+                    "Google sign-in failed:",
+                    error
+                );
+
+
+                let message =
+                    "Google sign-in failed.";
+
+
+                if (
+                    error.code ===
+                    "auth/popup-closed-by-user"
+                ) {
+
+                    message =
+                        "The Google sign-in window was closed. Please click Sign in with Google again.";
+
+                } else if (
+                    error.code ===
+                    "auth/popup-blocked"
+                ) {
+
+                    message =
+                        "The browser blocked the Google sign-in popup. Allow popups for localhost:8000.";
+
+                } else if (
+                    error.code ===
+                    "auth/unauthorized-domain"
+                ) {
+
+                    message =
+                        "localhost is not authorized in Firebase Authentication.";
+
+                } else if (
+                    error.code ===
+                    "auth/operation-not-allowed"
+                ) {
+
+                    message =
+                        "Google authentication is not enabled in Firebase.";
+
+                } else {
+
+                    message =
+                        error.message ||
+                        message;
+                }
+
+
+                authStatus.textContent =
+                    message;
+
+
+            } finally {
+
+                googleSignIn.disabled =
+                    false;
+            }
+        }
+    );
+
+
+    // ========================================================
+    // LOGOUT
+    // ========================================================
+
+    logoutButton.addEventListener(
+        "click",
+        async () => {
+
+            try {
+
+                await signOut(auth);
+
+            } catch (error) {
+
+                console.error(
+                    "Logout failed:",
+                    error
+                );
+
+            }
+
+        }
+    );
+
+
+    // ========================================================
+    // FILE NAME DISPLAY
+    // ========================================================
+
+    function showFileName(
+        inputId,
+        outputId
+    ) {
+
+        const input =
+            document.getElementById(inputId);
+
+        const output =
+            document.getElementById(outputId);
+
+
+        input.addEventListener(
+            "change",
+            () => {
+
+                output.textContent =
+                    input.files.length
+                        ? input.files[0].name
+                        : "No file chosen";
+
+            }
+        );
+    }
+
+
+    showFileName(
+        "panFile",
+        "panName"
+    );
+
+    showFileName(
+        "gstFile",
+        "gstName"
+    );
+
+    showFileName(
+        "financialFile",
+        "financialName"
+    );
+
+    showFileName(
+        "mainFile",
+        "mainName"
+    );
+
+
+    // ========================================================
+    // AUDIT
+    // ========================================================
+
+    const auditForm =
+        document.getElementById("auditForm");
+
+    const runAudit =
+        document.getElementById("runAudit");
+
+    const result =
+        document.getElementById("result");
+
+
+    auditForm.addEventListener(
+        "submit",
+        async (event) => {
+
+            event.preventDefault();
+
+
+            if (!auth.currentUser) {
+
+                alert(
+                    "Please sign in with Google before running an audit."
+                );
+
+                return;
+            }
+
+
+            const mainFile =
+                document.getElementById("mainFile");
+
+
+            if (!mainFile.files.length) {
+
+                alert(
+                    "Please select the main tender bid document."
+                );
+
+                return;
+            }
+
+
+            runAudit.disabled =
+                true;
+
+            runAudit.textContent =
+                "RUNNING AUDIT...";
+
+            result.textContent =
+                "Uploading documents and running compliance analysis...";
+
+
+            try {
+
+                // ----------------------------------------
+                // Get Firebase ID token
+                // ----------------------------------------
+
+                const token =
+                    await auth.currentUser.getIdToken(
+                        true
+                    );
+
+
+                // ----------------------------------------
+                // Form data
+                // ----------------------------------------
+
+                const formData =
+                    new FormData(
+                        auditForm
+                    );
+
+
+                // ----------------------------------------
+                // Backend request
+                // ----------------------------------------
+
+                const response =
+                    await fetch(
+                        "/audit",
+                        {
+                            method: "POST",
+
+                            headers: {
+                                "Authorization":
+                                    `Bearer ${token}`
+                            },
+
+                            body: formData
+                        }
+                    );
+
+
+                const text =
+                    await response.text();
+
+
+                if (!response.ok) {
+
+                    throw new Error(
+                        `Audit failed (${response.status}): ${text}`
+                    );
+                }
+
+
+                // ----------------------------------------
+                // Display result
+                // ----------------------------------------
+
+                try {
+
+                    const data =
+                        JSON.parse(text);
+
+                    result.textContent =
+                        JSON.stringify(
+                            data,
+                            null,
+                            2
+                        );
+
+                } catch {
+
+                    result.textContent =
+                        text;
+                }
+
+
+            } catch (error) {
+
+                console.error(
+                    "Audit error:",
+                    error
+                );
+
+                result.textContent =
+                    error.message;
+
+
+            } finally {
+
+                runAudit.disabled =
+                    false;
+
+                runAudit.textContent =
+                    "RUN AUDIT";
+            }
+        }
+    );
+
+
+    // ========================================================
+    // START FIREBASE
+    // ========================================================
+
+    initializeFirebase();
+
+</script>
+
+</body>
+</html>
