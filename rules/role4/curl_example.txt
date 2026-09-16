@@ -1,0 +1,8 @@
+curl -X POST "http://127.0.0.1:8000/api/v1/compliance/check" ^
+  -H "Content-Type: application/json" ^
+  --data-binary "@data/backend_test_request.json"
+
+# If using the file from the integration folder, run:
+# curl -X POST "http://127.0.0.1:8000/api/v1/compliance/check" ^
+#   -H "Content-Type: application/json" ^
+#   --data-binary "@integration/backend_test_request.json"
